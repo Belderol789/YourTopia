@@ -38,7 +38,6 @@ class ProfileFeed: UIView {
     func setupDelegates() {
         tableView.delegate = feedTableView
         tableView.dataSource = feedTableView
-        collectionView.backgroundColor = .clear
         tableView.backgroundColor = .clear
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -57,11 +56,11 @@ extension ProfileFeed: UICollectionViewDelegate, UICollectionViewDataSource, UIC
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: followingCollectionViewCell.cellIdentifier, for: indexPath) as? followingCollectionViewCell else {return UICollectionViewCell()}
         let interestTitle = fakeData[indexPath.item]
-        let fakeColor = fakeColors[indexPath.item]
+        //let fakeColor = fakeColors[indexPath.item]
         
         cell.button.setTitle(interestTitle, for: .normal)
         cell.button.titleLabel?.adjustsFontSizeToFitWidth = true
-        cell.colorView.backgroundColor = fakeColor
+        //cell.colorView.backgroundColor = fakeColor
         cell.contentView.backgroundColor = .clear
         return cell
         

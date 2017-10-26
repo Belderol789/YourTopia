@@ -18,11 +18,14 @@ class MainVC: UIViewController {
     var x = 0
     //
     
+    @IBOutlet weak var exCategoryView: UIViewX!
     @IBOutlet weak var circleView: UIViewX!
     @IBOutlet weak var expandingView: UIViewX!
     @IBOutlet weak var newImagePost: UIButtonX!
     @IBOutlet weak var newTextPost: UIButtonX!
     @IBOutlet weak var newPostButton: UIButtonX!
+    @IBOutlet weak var categoryView: UIView!
+    @IBOutlet weak var dropDown: UIButtonX!
     
     @IBOutlet weak var tableView: UITableView!{
         didSet{
@@ -48,12 +51,13 @@ class MainVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.resetAlphaValues()
+        self.resetAnimations()
     }
     
     func resetAlphaValues() {
         self.newTextPost.alpha = 0
         self.newImagePost.alpha = 0
+        self.collectionView.alpha = 0
     }
     
     override func viewWillLayoutSubviews() {
@@ -72,16 +76,60 @@ class MainVC: UIViewController {
                 
             })
         } else {
+            self.resetAnimations()
+        }
+    }
+    
+    @IBAction func didTapDropDown(_ sender: UIButton) {
+        if exCategoryView.transform == .identity {
             UIView.animate(withDuration: 0.5, animations: {
-                self.resetAlphaValues()
+                self.exCategoryView.transform = CGAffineTransform(scaleX: 20, y: 20)
+                self.categoryView.transform = CGAffineTransform(translationX: 0, y: self.collectionView.frame.height)
+                self.dropDown.transform = CGAffineTransform(rotationAngle: self.convertToRadians(180))
+                
             }, completion: { (true) in
-                UIView.animate(withDuration: 0.5, animations: {
-                    self.expandingView.transform = .identity
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.dropDown.backgroundColor = Constant.orange
+                    self.collectionView.alpha = 1
                 })
                 
             })
+        } else {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.categoryView.transform = .identity
+                self.exCategoryView.transform = .identity
+                self.collectionView.alpha = 0
+                self.dropDown.transform = .identity
+                self.dropDown.backgroundColor = UIColor.white.withAlphaComponent(0.1)
+            })
             
         }
+    }
+    
+    func convertToRadians(_ degrees: Double) -> CGFloat {
+        return CGFloat(degrees * .pi / 180)
+    }
+    
+    @IBAction func newUserPost(_ sender: UIButtonX) {
+        
+        let storyboard = UIStoryboard(name: Constant.mainStoryboard, bundle: Bundle.main)
+        guard let postVC = storyboard.instantiateViewController(withIdentifier: Constant.postVC) as? PostVC else {return}
+        self.present(postVC, animated: true, completion: nil)
+        
+        
+    }
+    
+    
+    func resetAnimations() {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.resetAlphaValues()
+        }, completion: { (true) in
+            UIView.animate(withDuration: 0.5, animations: {
+                self.expandingView.transform = .identity
+            })
+            
+        })
+        
     }
     
 }
@@ -111,7 +159,7 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
         
         return CGSize(width: itemWidth, height: itemHeight)
     }
-
+    
     @objc func scrollNext() {
         if self.x < self.fakeTopics.count - 1 {
             self.x = self.x + 1
@@ -122,20 +170,22 @@ extension MainVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
         } else {
             self.x = 0
             self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: true)
+            print(x)
         }
     }
     
     @objc func scrollBack() {
-        print(x)
+        
         if self.x > 0 {
+            
             self.x = self.x - 1
             let indexPath = IndexPath(item: x, section: 0)
-            
             self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+            print(x)
             
         }
     }
- 
+    
     
 }
 

@@ -27,7 +27,6 @@ class CustomImageFlowLayout: UICollectionViewFlowLayout {
         }
         get {
             let numberOfColumns: CGFloat = 2
-            
             let itemWidth = (self.collectionView!.frame.width - (numberOfColumns - 1)) / numberOfColumns
             return CGSize(width: itemWidth, height: itemWidth)
         }

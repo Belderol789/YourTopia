@@ -13,48 +13,63 @@ import UIKit
 
 class Constant {
     
-    public static let blue = UIColor(red: 0/255, green: 122/255, blue: 255/255, alpha: 1)
-    public static let orange = UIColor(red: 255/255, green: 128/255, blue: 0/255, alpha: 1)
-    public static let clearBlack = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.5)
-    public static let subject = "SubjectsVC"
-    public static let tabController = "TabController"
-    public static let mainStoryboard = "Main"
-    public static let mainVC = "MainVC"
-    public static let resultsVC = "ResultsVC"
-    public static let defaultButtonSubject = "1. CHOOSE A SUBJECT"
-    public static let defaultButtonPrice = "2. CHOOSE A MINIMUM PRICE"
-    public static let defaultButtonPlace = "3. CHOOSE A LOCATION"
-    public static let subjectNumber = 10
-    public static let errorSignIn = "Error Signing Up"
-    public static let errorLogingIn = "Error Loging In"
-    public static let apology = "We seem to be having an issue. Please retry again later."
-    public static let response = "Ok"
-    public static let authError = "Problem with Authentication"
-    public static let invalidEmail = "Invalid Email"
-    public static let validEmail = "Please provide a valid email address"
-    public static let missingFields = "Missing Fields"
-    public static let provideFields = "Please fill in all of the fields"
-    public static let minus = "-"
-    public static let plus = "+"
-    public static let userDefaultsKey = "loggedInUser"
-    //----------------------------------------------------//
-//    public static let currentUser = Auth.auth().currentUser?.uid
-//    public static let ref: DatabaseReference = Database.database().reference()
-//    
-//    public static func detailsOfUser() -> [String:Any] {
-//        var userValues: [String:Any] = [:]
-//        if let id = Auth.auth().currentUser?.uid {
-//            ref.child("tutors").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
-//                guard let dictionary = snapshot.value as? [String:Any] else
-//                 {return}
-//                let tutor = Tutor(dictionary: dictionary)
-//                let values = ["name":tutor.name, "uid":tutor.uid, "occupation":tutor.occupation, "school":tutor.school, "aboutMe":tutor.about, "photo":tutor.photo]
-//                userValues = values
-//  
-//            })
-//        }
-//        
-//        return userValues
-//        
-//    }
+    
+    //colors
+    static let blue = UIColor(red: 0/255, green: 122/255, blue: 255/255, alpha: 1)
+    static let orange = UIColor(red: 255/255, green: 128/255, blue: 0/255, alpha: 1)
+    static let clearBlack = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.5)
+    
+    //view identifiers
+    static let subject = "SubjectsVC"
+    static let tabController = "TabController"
+    static let mainStoryboard = "Main"
+    static let loginStoryboard = "Login"
+    static let mainVC = "MainVC"
+    static let resultsVC = "ResultsVC"
+    static let postVC = "PostVC"
+    static let signupCredentials = "SignupCredentials"
+    static let signupBirthday = "SignupBirthday"
+    static let infoView = "InfoView"
+    static let profileFeed = "ProfileFeed"
+    static let scoreView = "ScoreView"
+    
+    
+    //Pop ups
+    static let errorSignIn = "Error Signing Up"
+    static let error = "Error"
+    static let errBirthMessage = "Sorry we mised that. Could you turn it again"
+    static let errorLogingIn = "Error Loging In"
+    static let apology = "We seem to be having an issue. Please retry again later."
+    static let response = "Ok"
+    static let alright = "Alright"
+    static let authError = "Problem with Authentication"
+    static let invalidEmail = "Invalid Email"
+    static let invalidPassword = "Invalid Passwords"
+    static let validEmail = "Please provide a valid email address"
+    static let missingFields = "Missing Fields"
+    static let provideFields = "Please fill in all of the fields"
+    static let validPasswords = "Passwords do not match. Remember passwords are case sensitive"
+    static let minus = "-"
+    static let plus = "+"
+    
+    //UserDefaultsKeys
+    static let fullNameKey = "fullName"
+    static let occupationKey = "occupation"
+    static let aboutKey = "about"
+    static let birthdayKey = "birthday"
+    static let nickNameKey = "nickName"
+    static let profilePicKey = "profilePic"
+    
+    //UserDefaults
+    static let fullName = UserDefaults.standard.value(forKey: Constant.fullNameKey)
+    static let occupation = UserDefaults.standard.value(forKey: Constant.occupationKey)
+    static let about = UserDefaults.standard.value(forKey: Constant.aboutKey)
+    static let birthday = UserDefaults.standard.value(forKey: Constant.birthdayKey)
+    static let profilePic = UserDefaults.standard.value(forKey: Constant.profilePicKey)
+    static let nickName = UserDefaults.standard.value(forKey: Constant.nickNameKey)
+    
+    
+    
+    
+    
 }

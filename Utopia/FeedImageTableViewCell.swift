@@ -12,9 +12,12 @@ class FeedImageTableViewCell: UITableViewCell {
     
     static let cellIdentifier = "FeedImageTableViewCell"
     static let cellNib = UINib(nibName: cellIdentifier, bundle: Bundle.main)
+    @IBOutlet weak var postText: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
+//        postText.sizeToFit()
+//        postText.numberOfLines = 0
         
     }
 

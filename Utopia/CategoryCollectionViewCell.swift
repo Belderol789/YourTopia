@@ -9,10 +9,15 @@
 import UIKit
 
 class CategoryCollectionViewCell: UICollectionViewCell {
+    
+    static let cellIdentifier = "CategoryCollectionViewCell"
+    static let cellNib = UINib(nibName: cellIdentifier, bundle: Bundle.main)
+    @IBOutlet weak var imageView: UIImageViewX!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        imageView.circularImageView()
+       
     }
 
 }

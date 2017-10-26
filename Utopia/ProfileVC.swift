@@ -9,47 +9,89 @@
 import UIKit
 
 class ProfileVC: UIViewController {
-
+    
     
     @IBOutlet weak var aboutMe: UIButton!
     @IBOutlet weak var interestButton: UIButton!
-   
-  
+    @IBOutlet weak var scoreButton: UIButton!
+    @IBOutlet var Buttons: [UIButtonX]!
+    @IBOutlet weak var profilePicImageView: UIImageViewX!{
+        didSet{
+            profilePicImageView.image = UIImage(named: "user")
+        }
+    }
+    @IBOutlet weak var nameLabel: UILabel!
+    
+    
     
     @IBOutlet weak var slidingView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
-     override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         let slides:[UIView] = createSlides()
         setupScrollView(slides: slides)
-      
-
+        
+        
     }
-  
+    
+    override func viewWillAppear(_ animated: Bool) {
+    
+        self.checkUserDefaults()
+    }
+    
+    func checkUserDefaults() {
+        if let profilePic = Constant.profilePic as? String {
+            profilePicImageView.loadImageUsingCacheWithUrlString(urlString: profilePic)
+        }
+        
+        if let name = Constant.fullName as? String {
+            nameLabel.text = name
+            
+        }
+        
+    }
+    
     @IBAction func aboutTapped(_ sender: UIButton) {
-        interestButton.setTitleColor(Constant.blue, for: .normal)
-        aboutMe.setTitleColor(.white, for: .normal)
+       self.setButtonColors(sender: sender)
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         
     }
     
     @IBAction func interestTapped(_ sender: UIButton) {
-        interestButton.setTitleColor(.white, for: .normal)
-        aboutMe.setTitleColor(Constant.orange, for: .normal)
+      self.setButtonColors(sender: sender)
         scrollView.setContentOffset(CGPoint(x: slidingView.frame.width , y: 0), animated: true)
         
         
     }
     
+    @IBAction func myScoreTapped(_ sender: UIButton) {
+      self.setButtonColors(sender: sender)
+        scrollView.setContentOffset(CGPoint(x: slidingView.frame.width * 2, y: 0), animated: true)
+    }
     
-   
+    func setButtonColors(sender: UIButton) {
+        for each in Buttons {
+            if each == sender {
+                sender.setTitleColor(.white, for: .normal)
+                sender.backgroundColor = Constant.orange
+            } else {
+                each.setTitleColor(.white, for: .normal)
+                each.backgroundColor = Constant.blue
+            }
+        }
+      
+    }
+    
+    
     
     func createSlides() -> [UIView] {
-        let slides1:InfoView = Bundle.main.loadNibNamed("InfoView", owner: self, options: nil)?.first as! InfoView
-        let slides2:ProfileFeed = Bundle.main.loadNibNamed("ProfileFeed", owner: self, options: nil)?.first as! ProfileFeed
-      
-        return [slides1, slides2]
+        let slides1:InfoView = Bundle.main.loadNibNamed(Constant.infoView, owner: self, options: nil)?.first as! InfoView
+        let slides2:ProfileFeed = Bundle.main.loadNibNamed(Constant.profileFeed, owner: self, options: nil)?.first as! ProfileFeed
+        let slides3:ScoreView = Bundle.main.loadNibNamed(Constant.scoreView, owner: self, options: nil)?.first as! ScoreView
+        
+        return [slides1, slides2, slides3]
     }
     
     func setupScrollView(slides:[UIView]) {
